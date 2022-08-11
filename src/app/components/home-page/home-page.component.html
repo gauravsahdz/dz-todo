@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="form-container">
+    <form [formGroup]="todosForm" class="form">
+      <h2>{{ actionTitle }} Todo</h2>
+
+      <mat-form-field class="matformfield">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" autocomplete="off" maxlength="15" minlength="5" >
+      </mat-form-field>
+
+      <mat-form-field class="matformfield">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Ex. buy milk from the market for evening..." maxlength="100" minlength="10" ></textarea>
+      </mat-form-field>
+
+      <div class="actionBtn">
+        <button type="submit" class="addBtn" (click)="addTodos()">{{ actionBtnText }}</button>
+        <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="lists">
+    <div class="lists-card">
+      <div class="card" *ngFor="let items of todos">
+        <div class="first-row">
+          <b>{{ items.title }}</b>
+          <div>
+            <img
+              class="icons"
+              (click)="editTodo(items)"
+              src="../../../assets/icons/edit_icon.png"
+            />
+
+            <img
+              class="icons"
+              (click)="deleteTodos(items._id)"
+              src="../../../assets/icons/delete_icon.png"
+            />
+          </div>
+        </div>
+        <p>{{ items.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
