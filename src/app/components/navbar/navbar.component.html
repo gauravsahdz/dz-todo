@@ -1,8 +1,22 @@
 <div class="navbar">
-    <div class="logo"><h1>TODO CRUD APP</h1></div>
-    <div class="menus">
-        <ul>
-            <li><a href="http://www.gauravkumarsah.com.np">About</a></li>
-        </ul>
+  <div class="logo" routerLink="/todos"><h1>TODO CRUD APP</h1></div>
+  <div class="menus">
+    <ul *ngIf="notLoggedIn">
+      <li class="login"><a routerLink="/login">Login</a></li>
+      <li class="signup"><a routerLink="/signup">Sign up</a></li>
+    </ul>
+
+    <div *ngIf="loggedIn" >
+        <img
+        [matMenuTriggerFor]="menu"
+          src="../../../assets/icons/avatar2.png"
+          alt="avatar"
+          class="avatar"
+        />
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>{{username}}</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
     </div>
+  </div>
 </div>

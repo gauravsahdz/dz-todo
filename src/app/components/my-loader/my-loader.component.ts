@@ -10,7 +10,6 @@ import { ApiService } from '../../services/api.service';
 export class MyLoaderComponent implements OnInit {
 
   loader: any;
-
   constructor(private api: ApiService) {
 
     this.api.loader.subscribe((res) => {

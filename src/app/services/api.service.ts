@@ -9,21 +9,26 @@ export class ApiService {
   loader = new BehaviorSubject(false);
   
   getDatas():Observable<any> {
-    return this.http.get<any>('https://dz-todo.herokuapp.com/api/v1/todos');
+    return this.http.get<any>('http://localhost:5000/api/v1/todos');
   }
 
   addDatas(datas: any) {
-    return this.http.post<any>('https://dz-todo.herokuapp.com/api/v1/todos', datas);
+    return this.http.post<any>('http://localhost:5000/api/v1/todos', datas);
   }
 
   updateDatas(data: any, id: any) {
     return this.http.patch<any>(
-      `https://dz-todo.herokuapp.com/api/v1/todos/${id}`,
+      `http://localhost:5000/api/v1/todos/${id}`,
       data
     );
   }
 
   deleteDatas(id: any) {
-    return this.http.delete<any>(`https://dz-todo.herokuapp.com/api/v1/todos/${id}`);
+    return this.http.delete<any>(`http://localhost:5000/api/v1/todos/${id}`);
   }
+
+  getUsers():Observable<any> {
+    return this.http.get<any>('http://localhost:5000/api/v1/users');
+  }
+
 }

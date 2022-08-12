@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="landing-page">
+    <div class="welcome">
+      <h2>Welcome to dz-todo</h2>
+      <img
+        src="../../../assets/landingPage4.png"
+        alt="illustration-todo"
+        height="300"
+        width="400"
+      />
+      <p>
+        dz-todo is a web application that allows you to create and manage your
+        todos. You can create, edit, delete and mark your todos as completed.
+        Login to get started.
+      </p>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="loginForm" class="form">
+      <h2>Login</h2>
+
+      <mat-form-field class="matformfield">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field class="matformfield">
+        <mat-label>Password</mat-label>
+        <div class="password">
+          <input matInput type="password" formControlName="password" /><i
+            class="far fa-eye"
+            id="togglePassword"
+          ></i>
+        </div>
+      </mat-form-field>
+
+      <div class="actionBtn">
+        <button type="submit" class="addBtn" (click)="login()">Sign In</button>
+        <!-- <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button> -->
+      </div>
+    </form>
+  </div>
+</div>

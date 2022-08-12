@@ -17,7 +17,8 @@ export class HomePageComponent implements OnInit {
   formData: any;
   updateTodosId: any;
   actionTitle: string = 'Create';
-  error: string = '';
+  errorTitle: string = '';
+  errorDesc: string = '';
 
   constructor(private api: ApiService,public http: HttpClient, private formBuilder: FormBuilder, private _snackBar: MatSnackBar,public dialog: MatDialog) {}
 
@@ -26,9 +27,9 @@ export class HomePageComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
     });
-
     this.getTodos();
   }
+
 
   resetForm() {
     this.todosForm.reset();
@@ -40,11 +41,10 @@ export class HomePageComponent implements OnInit {
     this.api.getDatas().subscribe({
       next: (res) => {
         this.todos = res.data.todos;
-        console.log('listing of datas: ', this.todos);
+        // console.log('listing of datas: ', this.todos);
       },
     });
   }
-
 
   addTodos() {
     //if the form is not getting edited then add the todo else update the todo

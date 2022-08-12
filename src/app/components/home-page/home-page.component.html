@@ -6,11 +6,13 @@
       <mat-form-field class="matformfield">
         <mat-label>Title</mat-label>
         <input matInput formControlName="title" autocomplete="off" maxlength="15" minlength="5" >
+        <p class="error">{{errorTitle}}</p>
       </mat-form-field>
-
+      
       <mat-form-field class="matformfield">
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description" placeholder="Ex. buy milk from the market for evening..." maxlength="100" minlength="10" ></textarea>
+        <p class="error">{{errorDesc}}</p>
       </mat-form-field>
 
       <div class="actionBtn">

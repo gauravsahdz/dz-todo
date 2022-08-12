@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="landing-page">
+    <div class="welcome">
+      <h2>Welcome to dz-todo</h2>
+      <img
+        src="../../../assets/landingPage4.png"
+        alt="illustration-todo"
+        height="300"
+        width="400"
+      />
+      <p>
+        dz-todo is a web application that allows you to create and manage your
+        todos. You can create, edit, delete and mark your todos as completed.
+        Sign up and login to get started.
+      </p>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form [formGroup]="signupForm" class="form">
+      <h2>Register</h2>
+
+      <mat-form-field class="matformfield">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+        <p>{{errorUsername}}</p>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" name="email" ngModel email="true"/>
+      </mat-form-field>
+
+      <mat-form-field class="matformfield">
+        <mat-label>Password</mat-label>
+        <div class="password">
+          <input matInput type="password" formControlName="password" /><i
+            class="far fa-eye"
+            id="togglePassword"
+          ></i>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field class="matformfield">
+        <mat-label>Confirm Password</mat-label>
+        <div class="password">
+          <input matInput type="password" formControlName="passwordConfirm" /><i
+            class="far fa-eye"
+            id="togglePassword"
+          ></i>
+        </div>
+      </mat-form-field>
+
+      <div class="actionBtn">
+        <button type="submit" class="addBtn" (click)="signup()">Sign Up</button>
+        <!-- <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button> -->
+      </div>
+    </form>
+  </div>
+</div>

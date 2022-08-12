@@ -17,7 +17,6 @@ export class VerifyDialogComponent implements OnInit {
   }
 
   public deleteTodo() {
-    //this.showLoader = true;
     this.api.deleteDatas(this.id).subscribe({
       next: (res) => {
         let element: any = {}

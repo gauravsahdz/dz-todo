@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: rgb(57, 56, 56);
-    height: 10vh;
+    height: 8vh;
     color: white;
     position: fixed;
     width: 100%;
@@ -13,17 +13,30 @@
 }
 .logo h1{
     font-family: 'Rubik', sans-serif;
-    margin-left: 20px;
     font-size: 2rem;
     font-weight: 700;
+    margin: 20px;
+    cursor: pointer;
 }
 .menus{
     margin-right: 20px;
+}
+.menus ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .menus ul li{
     list-style: none;
     font-family: 'Rubik', sans-serif;
     font-size: 1.2rem;
+    margin-right: 20px;
+    cursor: pointer;
+    // border: 1px solid #ccc;
+    // border-radius: 0.5rem;
+    padding: 0.5rem;
+    color: white;
 }
 .menus ul li a{
     text-decoration: none;
@@ -32,6 +45,26 @@
 .menus ul li a:hover{
     color: rgb(230, 228, 228);
 }
+.login{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.signup{
+    border: 1px solid #ccc;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    margin: 20px;
+    cursor: pointer;
+}
+
+
+
+
+
 
 
 @media screen and (max-width: 480px) {
