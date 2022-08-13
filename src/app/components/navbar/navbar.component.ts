@@ -8,8 +8,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  notLoggedIn: boolean = false;
-  loggedIn: boolean = true;
+  notLoggedIn: boolean = true;
+  loggedIn: boolean = false;
   username: string = '';
 
   constructor(private router: Router) {}
@@ -19,15 +19,15 @@ export class NavbarComponent implements OnInit {
   }
 
   //function to check if the user is logged in or not
-  checkLogin() {
-    if (localStorage.getItem('token') == null) {
-      this.notLoggedIn = true;
-      this.loggedIn = false;
-    } else {
-      this.notLoggedIn = false;
-      this.loggedIn = true;
-    }
-  }
+  // checkLogin() {
+  //   if (localStorage.getItem('token') == null) {
+  //     this.notLoggedIn = true;
+  //     this.loggedIn = false;
+  //   } else {
+  //     this.notLoggedIn = false;
+  //     this.loggedIn = true;
+  //   }
+  // }
  
   
 

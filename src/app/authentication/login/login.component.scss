@@ -141,14 +141,7 @@
       width: 60vw;
     }
     .landing-page {
-      width: 100%;
-      max-width: 100vw;
-      margin-top: -67px;
-    }
-    .welcome {
-      width: 100%;
-      grid-template-columns: 1fr;
-      max-width: 100vw;
+      display: none;
     }
     h2 {
       margin-bottom: 0.8em;
