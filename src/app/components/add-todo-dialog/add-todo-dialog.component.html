@@ -1,0 +1,38 @@
+<form [formGroup]="todosForm" class="form">
+  <h2>{{ actionTitle }} Todo</h2>
+
+  <div class="form-line">
+    <mat-form-field class="matformfield">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        autocomplete="off"
+        maxlength="15"
+        minlength="5"
+      />
+    </mat-form-field>
+    <p class="error">{{ errorTitle }}</p>
+  </div>
+
+  <div class="form-line">
+    <mat-form-field class="matformfield">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Ex. buy milk from the market for evening..."
+        maxlength="100"
+        minlength="10"
+      ></textarea>
+    </mat-form-field>
+    <p class="error">{{ errorDesc }}</p>
+  </div>
+
+  <div class="actionBtn">
+    <button type="submit" class="addBtn" (click)="addTodos()">
+      {{ actionBtnText }}
+    </button>
+    <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button>
+  </div>
+</form>

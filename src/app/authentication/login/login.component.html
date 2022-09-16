@@ -1,44 +1,65 @@
 <div class="container">
-  <div class="landing-page">
-    <div class="welcome">
-      <h2>Welcome to dz-todo</h2>
-      <img
-        src="../../../assets/landingPage4.png"
-        alt="illustration-todo"
-        height="300"
-        width="400"
-      />
-      <p>
-        dz-todo is a web application that allows you to create and manage your
-        todos. You can create, edit, delete and mark your todos as completed.
-        Login to get started.
-      </p>
+  <div class="contents">
+    <div class="landing-page">
+      <div class="welcome">
+        <h2>Welcome to dz-todo</h2>
+        <img
+          src="../../../assets/landingPage2.svg"
+          alt="illustration-todo"
+          height="300"
+          width="400"
+        />
+        <p>
+          dz-todo is a web application that allows you to create and manage your
+          todos. You can create, edit, delete and mark your todos as completed.
+          Login to get started.
+        </p>
+      </div>
+    </div>
+  
+    <div class="form-container">
+      <form [formGroup]="loginForm" class="form">
+        <h1>Login</h1>
+  
+        <mat-form-field class="matformfield">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <p class="error">{{ errorEmail }}</p>
+  
+        <mat-form-field class="matformfield">
+          <mat-label>Password</mat-label>
+          <div class="password">
+            <input
+              matInput
+              [type]="show ? 'text' : 'password'"
+              formControlName="password"
+              maxlength="15"
+              minlength="8"
+            /><i
+              class="far fa-eye"
+              *ngIf="eyeShown"
+              id="togglePassword"
+              (click)="passwordShown()"
+            ></i>
+            <i
+              class="far fa-eye-slash"
+              (click)="passwordHidden()"
+              *ngIf="eyeHidden"
+              aria-hidden="true"
+            ></i>
+          </div>
+        </mat-form-field>
+        <p class="error">{{ errorPassword }}</p>
+        <p class="forgetPassword" routerLink="/forgetPassword">Forget Password?</p>
+  
+        <div class="actionBtn">
+          <button type="submit" class="addBtn" (click)="login()">Sign In</button>
+          <!-- <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button> -->
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="form-container">
-    <form [formGroup]="loginForm" class="form">
-      <h2>Login</h2>
-
-      <mat-form-field class="matformfield">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" />
-      </mat-form-field>
-
-      <mat-form-field class="matformfield">
-        <mat-label>Password</mat-label>
-        <div class="password">
-          <input matInput type="password" formControlName="password" /><i
-            class="far fa-eye"
-            id="togglePassword"
-          ></i>
-        </div>
-      </mat-form-field>
-
-      <div class="actionBtn">
-        <button type="submit" class="addBtn" (click)="login()">Sign In</button>
-        <!-- <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button> -->
-      </div>
-    </form>
-  </div>
+  
+  <app-footer></app-footer>
 </div>

@@ -1,22 +1,30 @@
 <div class="navbar">
-  <div class="logo" routerLink="/todos"><h1>TODO CRUD APP</h1></div>
+  <div class="logo" routerLink="/todos">
+    <h1>DZ TODO</h1>
+  </div>
   <div class="menus">
-    <ul *ngIf="notLoggedIn">
-      <li class="login"><a routerLink="/login">Login</a></li>
-      <li class="signup"><a routerLink="/signup">Sign up</a></li>
-    </ul>
-
-    <div *ngIf="loggedIn" >
-        <img
-        [matMenuTriggerFor]="menu"
-          src="../../../assets/icons/avatar2.png"
-          alt="avatar"
-          class="avatar"
-        />
+    <div [matMenuTriggerFor]="menu" *ngIf="loggedIn; else loggedOut">
+      <img
+        src="{{userImage}}"
+        alt="avatar"
+        class="avatar"
+      />
+      <h2 >{{username}} ⮟</h2>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>{{username}}</button>
-        <button mat-menu-item (click)="logout()">Logout</button>
+        <button mat-menu-item routerLink="/profile">
+          <i class="fa fa-user" aria-hidden="true"></i>Profile
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <i class="fa fa-power-off" aria-hidden="true"></i>Logout
+        </button>
       </mat-menu>
     </div>
+
+    <ng-template #loggedOut>
+      <ul>
+        <li class="login"><a routerLink="/login">Login</a></li>
+        <li class="signup"><a routerLink="/signup">Sign up</a></li>
+      </ul>
+    </ng-template>
   </div>
 </div>

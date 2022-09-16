@@ -16,9 +16,21 @@ import { VerifyDialogComponent } from './components/verify-dialog/verify-dialog.
 import { MatButtonModule } from '@angular/material/button';
 import { MyLoaderComponent } from './components/my-loader/my-loader.component';
 import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { ProfilePageComponent } from './authentication/profile-page/profile-page.component';
+import {MatIconModule} from '@angular/material/icon';
+import { FooterComponent } from './components/footer/footer.component';
+import { ForgetPasswordComponent } from './authentication/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
+import { UpdateCurrentUserPasswordComponent } from './authentication/update-current-user-password/update-current-user-password.component';
+import { VerifyUserDeletionComponent } from './components/verify-user-deletion/verify-user-deletion.component';
+import { AddTodoDialogComponent } from './components/add-todo-dialog/add-todo-dialog.component';
+import { EditTodoDialogComponent } from './components/edit-todo-dialog/edit-todo-dialog.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [
@@ -28,7 +40,15 @@ import {MatMenuModule} from '@angular/material/menu';
     VerifyDialogComponent,
     MyLoaderComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ProfilePageComponent,
+    FooterComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
+    UpdateCurrentUserPasswordComponent,
+    VerifyUserDeletionComponent,
+    AddTodoDialogComponent,
+    EditTodoDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,10 +61,14 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSnackBarModule,
     MatDialogModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MaterialFileInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

@@ -1,0 +1,29 @@
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    bottom: 5px;
+    right: 45%;
+}
+p{
+    font-size: 1rem;
+    font-weight: 500;
+}
+a{
+ color: black;
+}
+
+@media screen and (max-width: 480px) {
+    .footer{
+        flex-direction: column;
+        bottom: 5px;
+        right: 33%;
+    }
+    p{
+        font-size: 0.8rem;
+        font-weight: 400;
+    }
+}

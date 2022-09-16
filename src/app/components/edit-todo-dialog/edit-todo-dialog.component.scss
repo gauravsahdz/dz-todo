@@ -1,0 +1,77 @@
+.form-line {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 10vh;
+  }
+  .matformfield {
+    width: 100%;
+  }
+  h2 {
+    font-family: "Rubik", sans-serif;
+    margin-bottom: 1em;
+  }
+  mat-label {
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: "Rubik", sans-serif;
+  }
+  input {
+    font-family: "Rubik", sans-serif;
+    font-size: 1.1rem;
+  }
+  .error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: -17px;
+  }
+  textarea {
+    font-family: "Rubik", sans-serif;
+    font-size: 1.1rem;
+  }
+  
+  button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-family: "Rubik", sans-serif;
+  }
+  button:hover {
+    background-color: rgba(234, 230, 230, 0.848);
+  }
+  .resetBtn {
+    color: red;
+  }
+  button:active {
+    box-shadow: 1px 1px 5px rgba(125, 124, 124, 0.5);
+  }
+  
+  .actionBtn {
+    display: flex;
+    flex-direction: row;
+  }
+  
+
+  @media screen and (max-width: 480px) {
+    .error{
+      font-size: 0.5rem;
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .error{
+      font-size: 0.5rem;
+    }
+  }

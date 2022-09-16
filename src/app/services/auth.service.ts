@@ -1,24 +1,79 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { User } from '../models/user';
+import { environment as config } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
-  loader = new BehaviorSubject(false);
+  url = config.baseUrl;
+
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem('currentUser')!)
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+  loader = new BehaviorSubject(true);
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   signup(userDetails: any) {
-    return this.http.post<any>(
-      'http://localhost:5000/api/v1/users/signup',
-      userDetails
-    );
+    return this.http.post<any>(`${this.url}/users/signup`, userDetails);
   }
 
   login(userDetails: any) {
-    return this.http
-      .post<any>('http://localhost:5000/api/v1/users/login', userDetails)
+    return this.http.post<any>(`${this.url}/users/login`, userDetails).pipe(
+      map((user) => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        return user;
+      })
+    );
   }
 
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+
+    // get the user nulled - typescript won't care
+    this.currentUserSubject = new BehaviorSubject<User>(
+      JSON.parse(localStorage.getItem('currentUser')!)
+    );
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  forgetPassword(email: any) {
+    return this.http.post<any>(`${this.url}/users/forgotPassword`, email);
+  }
+
+  resetPassword(data: any) {
+    return this.http.patch<any>(
+      `${this.url}/users/resetPassword/${data.token}`,
+      data
+    );
+  }
+
+  updateCurrentUserPassword(data: any) {
+    // console.log("data",data);
+    return this.http.patch<any>(`${this.url}/users/updateMyPassword/`, data);
+  }
+
+  updateCurrentUser(data: any) {
+    console.log('data', data);
+    return this.http.patch<any>(`${this.url}/users/updateMe/`, data);
+  }
+
+  deleteCurrentUser() {
+    return this.http.delete<any>(`${this.url}/users/deleteMe/`);
+  }
 }

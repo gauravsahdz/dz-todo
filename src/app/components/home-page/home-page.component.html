@@ -3,34 +3,61 @@
     <form [formGroup]="todosForm" class="form">
       <h2>{{ actionTitle }} Todo</h2>
 
-      <mat-form-field class="matformfield">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title" autocomplete="off" maxlength="15" minlength="5" >
-        <p class="error">{{errorTitle}}</p>
-      </mat-form-field>
-      
-      <mat-form-field class="matformfield">
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" placeholder="Ex. buy milk from the market for evening..." maxlength="100" minlength="10" ></textarea>
-        <p class="error">{{errorDesc}}</p>
-      </mat-form-field>
+      <div class="form-line">
+        <mat-form-field class="matformfield">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            formControlName="title"
+            autocomplete="off"
+            maxlength="15"
+            minlength="5"
+          />
+        </mat-form-field>
+        <p class="error">{{ errorTitle }}</p>
+      </div>
+
+      <div class="form-line">
+        <mat-form-field class="matformfield">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Ex. buy milk from the market for evening..."
+            maxlength="100"
+            minlength="10"
+          ></textarea>
+        </mat-form-field>
+        <p class="error">{{ errorDesc }}</p>
+      </div>
 
       <div class="actionBtn">
-        <button type="submit" class="addBtn" (click)="addTodos()">{{ actionBtnText }}</button>
-        <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button>
+        <button type="submit" class="addBtn Btn" (click)="addTodos()">
+          {{ actionBtnText }}
+        </button>
+        <button type="submit" class="resetBtn Btn" (click)="resetForm()">
+          Reset
+        </button>
       </div>
     </form>
   </div>
 
   <div class="lists">
+
     <div class="lists-card">
       <div class="card" *ngFor="let items of todos">
         <div class="first-row">
           <b>{{ items.title }}</b>
-          <div>
+          <div class="util-icons">
             <img
-              class="icons"
+              class="icons edit-icon-visible"
               (click)="editTodo(items)"
+              src="../../../assets/icons/edit_icon.png"
+            />
+
+            <img
+              class="icons edit-icon-invisible"
+              (click)="editDialogTodo(items)"
               src="../../../assets/icons/edit_icon.png"
             />
 
@@ -44,5 +71,16 @@
         <p>{{ items.description }}</p>
       </div>
     </div>
+  </div>
+
+  <div class="responsive-add-btn">
+    <button
+      (click)="openAddDialog()"
+      mat-mini-fab
+      color="primary"
+      aria-label="Example icon button with a menu icon"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
 </div>
