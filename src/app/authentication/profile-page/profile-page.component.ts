@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VerifyUserDeletionComponent } from '../../components/verify-user-deletion/verify-user-deletion.component';
+import { environment as config } from '../../../environments/environment';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -28,10 +29,10 @@ export class ProfilePageComponent implements OnInit {
   email: string = '';
   password: string = '';
   role: string = '';
-  // profileImage: string = '';
   selectedFile!: ImageSnippet | string;
-  defaultImage!: ImageSnippet | string;
-  imageFile: File = new File([], '');
+  imageFile: File = new File([], ''); 
+
+  picUrl = config.picUrl;
 
   hiddenUsername: boolean = true;
   hiddenInputUsername: boolean = false;
@@ -41,6 +42,7 @@ export class ProfilePageComponent implements OnInit {
   editBtnEmail: boolean = true;
   saveBtnUser: boolean = false;
   saveBtnEmail: boolean = false;
+
 
   galleryForm: any;
 
@@ -70,12 +72,11 @@ export class ProfilePageComponent implements OnInit {
     });
 
     this.getUserDetails();
-    // console.log('current user details: ', this.currentUser['data'].user);
   }
 
   getUserDetails() {
     this.apiService
-      .getCurrentUser(this.currentUser['data'].user._id)
+    .getCurrentUser(this.currentUser['data'].user._id)
       .subscribe((res) => {
         this.userDetails = res.data.user;
         this.username = this.userDetails.username;
@@ -83,8 +84,7 @@ export class ProfilePageComponent implements OnInit {
         this.password = this.userDetails.password;
         this.role = this.userDetails.role;
         this.userId = this.userDetails._id;
-        // this.selectedFile = `http://localhost:5000/img/users/${this.userDetails.photo}`;
-        this.selectedFile = `https://dz-todo.herokuapp.com/img/users/${this.userDetails.photo}`;
+        this.selectedFile = `${this.picUrl}/${this.userDetails.photo}`;
       });
   }
 

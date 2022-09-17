@@ -4,6 +4,7 @@ import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { environment as config } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
   loggedIn = false;
   userImage: string = '';
   userDetails: any = [];
+  picUrl = config.picUrl;
 
   constructor(
     private router: Router,
@@ -40,8 +42,7 @@ export class NavbarComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.userDetails = res.data.user;
-          // this.userImage = `http://localhost:5000/img/users/${this.userDetails.photo}`;
-          this.userImage = `https://dz-todo.herokuapp.com/img/users/${this.userDetails.photo}`;
+          this.userImage = `${this.picUrl}/${this.userDetails.photo}`;
           this.username = this.userDetails.username;
           this.apiService.loader.next(false);
         },

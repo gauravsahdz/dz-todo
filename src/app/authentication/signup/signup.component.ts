@@ -98,15 +98,15 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       this.authService.signup(this.signupForm.value).subscribe({
         next: (res) => {
-          // this.signupContainer = false;
-          // this.emailVerification = true;
+          this.signupContainer = false;
+          this.emailVerification = true;
           this._snackBar.open('✔ Registration successfull', 'X', {
             duration: 3000,
             panelClass: ['success-snackbar'],
             verticalPosition: 'top',
           });
           this.apiService.loader.next(false);
-          this.router.navigate(['/login']);
+          // this.router.navigate(['/login']);
         },
         error: (err) => {
           console.log(err);

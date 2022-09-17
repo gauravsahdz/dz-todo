@@ -93,9 +93,15 @@ export class LoginComponent implements OnInit {
           });
         },
         error: (err) => {
-          console.log("error from login:", err);
-          if(err.status === 401) {
-            this._snackBar.open('✗ Invalid email or password', '', {
+          console.log('error from login:', err);
+          if (err.status === 401) {
+            this._snackBar.open('✗ Invalid email or password', 'X', {
+              duration: 3000,
+              panelClass: ['error-snackbar'],
+              verticalPosition: 'top',
+            });
+          } else if (err.status === 403) {
+            this._snackBar.open('✗ Account is not verified. Please check you mail to verify it.', 'X', {
               duration: 3000,
               panelClass: ['error-snackbar'],
               verticalPosition: 'top',
@@ -117,7 +123,7 @@ export class LoginComponent implements OnInit {
       this.errorPassword = this.loginForm.get('password').errors.required
         ? 'Please enter a valid password'
         : '';
-        
+
       this.apiService.loader.next(false);
     }
   }
