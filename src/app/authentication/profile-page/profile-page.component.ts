@@ -30,7 +30,7 @@ export class ProfilePageComponent implements OnInit {
   password: string = '';
   role: string = '';
   selectedFile!: ImageSnippet | string;
-  imageFile: File = new File([], ''); 
+  imageFile: File = new File([], '');
 
   picUrl = config.picUrl;
 
@@ -42,7 +42,6 @@ export class ProfilePageComponent implements OnInit {
   editBtnEmail: boolean = true;
   saveBtnUser: boolean = false;
   saveBtnEmail: boolean = false;
-
 
   galleryForm: any;
 
@@ -76,15 +75,38 @@ export class ProfilePageComponent implements OnInit {
 
   getUserDetails() {
     this.apiService
-    .getCurrentUser(this.currentUser['data'].user._id)
-      .subscribe((res) => {
-        this.userDetails = res.data.user;
-        this.username = this.userDetails.username;
-        this.email = this.userDetails.email;
-        this.password = this.userDetails.password;
-        this.role = this.userDetails.role;
-        this.userId = this.userDetails._id;
-        this.selectedFile = `${this.picUrl}/${this.userDetails.photo}`;
+      .getCurrentUser(this.currentUser['data'].user._id)
+      .subscribe({
+        next: (res: any) => {
+          console.log({ res });
+          this.userDetails = res.data.user;
+          this.username = this.userDetails.username;
+          this.email = this.userDetails.email;
+          this.password = this.userDetails.password;
+          this.role = this.userDetails.role;
+          this.userId = this.userDetails._id;
+          this.selectedFile = `${this.picUrl}/${this.userDetails.photo}`;
+        },
+        error: (err) => {
+          if (err.status == 401) {
+            this._snackBar.open(
+              '✗ User recently changed password! Please log in again.',
+              'X',
+              {
+                duration: 2000,
+                panelClass: ['error-snackbar'],
+                verticalPosition: 'top',
+              }
+            );
+            this.router.navigate(['/login']);
+          }
+          this._snackBar.open('✗' + err.error.message, 'X', {
+            duration: 2000,
+            panelClass: ['error-snackbar'],
+            verticalPosition: 'top',
+          });
+          this.apiService.loader.next(false);
+        },
       });
   }
 

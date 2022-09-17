@@ -4,12 +4,8 @@
   </div>
   <div class="menus">
     <div [matMenuTriggerFor]="menu" *ngIf="loggedIn; else loggedOut">
-      <img
-        src="{{userImage}}"
-        alt="avatar"
-        class="avatar"
-      />
-      <h2 >{{username}} ⮟</h2>
+      <img src="{{ userImage }}" alt="avatar" class="avatar" />
+      <h2>{{ username }} &#x25BC;</h2>
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="/profile">
           <i class="fa fa-user" aria-hidden="true"></i>Profile
