@@ -16,9 +16,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'profile', component: ProfilePageComponent ,canActivate: [AuthGuard]},
   { path: 'forgetPassword', component:  ForgetPasswordComponent},
-  { path: 'resetPassword', component:  ResetPasswordComponent},
+  { path: 'resetPassword/:token', component:  ResetPasswordComponent},
   { path: 'updateCurrentUserPassword', component:  UpdateCurrentUserPasswordComponent, canActivate: [AuthGuard]},
-
   { path: '**', redirectTo: '' }
 ];
 

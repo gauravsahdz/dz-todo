@@ -100,13 +100,12 @@ export class SignupComponent implements OnInit {
         next: (res) => {
           this.signupContainer = false;
           this.emailVerification = true;
-          this._snackBar.open('✔ Registration successfull', 'X', {
+          this._snackBar.open('✔ Verification mail sent', 'X', {
             duration: 3000,
             panelClass: ['success-snackbar'],
             verticalPosition: 'top',
           });
           this.apiService.loader.next(false);
-          // this.router.navigate(['/login']);
         },
         error: (err) => {
           console.log(err);
@@ -123,7 +122,6 @@ export class SignupComponent implements OnInit {
               verticalPosition: 'top',
             });
           }
-
           this.apiService.loader.next(false);
         },
       });

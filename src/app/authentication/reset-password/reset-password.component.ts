@@ -21,6 +21,8 @@ export class ResetPasswordComponent implements OnInit {
   eyeShown: boolean = false;
   errorPassword: string = '';
   errorPasswordConfirm: string = '';
+  currentState: any;
+  resetToken: null | undefined;
   
   constructor(
     private authService: AuthService,
@@ -34,6 +36,13 @@ export class ResetPasswordComponent implements OnInit {
     if (this.authService.currentUserValue) {
       this.router.navigate(['/todos']);
     }
+    
+    // this.currentState = 'Wait';
+     this.route.params.subscribe(params => {
+      this.resetToken = params['token'];
+      console.log(this.resetToken);
+    //   this.VerifyToken();
+    });
   }
 
   ngOnInit(): void {
@@ -81,9 +90,21 @@ export class ResetPasswordComponent implements OnInit {
     this.eyeHidden = false;
   }
 
+  VerifyToken() {
+    this.authService.ValidPasswordToken({resettoken: this.resetToken}).subscribe(
+      (data: any) => {
+        this.currentState = 'Verified';
+      },
+      (err: any) => {
+        this.currentState = 'NotVerified';
+      }
+    );
+  }
+
   changePassword() {
+    console.log(this.resetToken);
     if (this.resetPasswordForm.valid) {
-      this.authService.resetPassword(this.resetPasswordForm.value).subscribe({
+      this.authService.resetPassword(this.resetToken ,this.resetPasswordForm.value).subscribe({
         next: (res) => {
           this._snackBar.open('✔ Password Changed Successfully.', 'X', {
             duration: 2000,
@@ -91,6 +112,7 @@ export class ResetPasswordComponent implements OnInit {
             verticalPosition: 'top',
           });
           this.apiService.loader.next(false);
+          this.router.navigate(['/login']);
         },
         error: (err) => {
          if(err.status == 400){

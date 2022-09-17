@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 import { User } from '../models/user';
 import { environment as config } from 'src/environments/environment';
 
@@ -14,7 +16,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser')!)
     );
@@ -29,6 +31,7 @@ export class AuthService {
   signup(userDetails: any) {
     return this.http.post<any>(`${this.url}/users/signup`, userDetails);
   }
+
 
   login(userDetails: any) {
     return this.http.post<any>(`${this.url}/users/login`, userDetails).pipe(
@@ -56,9 +59,13 @@ export class AuthService {
     return this.http.post<any>(`${this.url}/users/forgotPassword`, email);
   }
 
-  resetPassword(data: any) {
+  ValidPasswordToken(body: any): Observable<any> {
+    return this.http.post(`${this.url}/users/valid-password-token`, body);
+  }
+
+  resetPassword(token: any, data: any) {
     return this.http.patch<any>(
-      `${this.url}/users/resetPassword/${data.token}`,
+      `${this.url}/users/resetPassword/${token}`,
       data
     );
   }
@@ -69,7 +76,7 @@ export class AuthService {
   }
 
   updateCurrentUser(data: any) {
-    console.log('data', data);
+    // console.log('data', data);
     return this.http.patch<any>(`${this.url}/users/updateMe/`, data);
   }
 

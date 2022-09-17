@@ -101,11 +101,15 @@ export class LoginComponent implements OnInit {
               verticalPosition: 'top',
             });
           } else if (err.status === 403) {
-            this._snackBar.open('✗ Account is not verified. Please check you mail to verify it.', 'X', {
-              duration: 3000,
-              panelClass: ['error-snackbar'],
-              verticalPosition: 'top',
-            });
+            this._snackBar.open(
+              '✗ Account is not verified. Please check you mail to verify it.',
+              'X',
+              {
+                duration: 3000,
+                panelClass: ['error-snackbar'],
+                verticalPosition: 'top',
+              }
+            );
           } else {
             this._snackBar.open('✗ Something went wrong', 'X', {
               duration: 3000,
