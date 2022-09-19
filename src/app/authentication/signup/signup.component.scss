@@ -91,7 +91,8 @@ button {
   align-items: center;
   height: 2.5rem;
   font-size: 1rem;
-  background-color: white;
+  color: black;
+  background-color: #6efb9b;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   padding: 0.5rem;
@@ -101,9 +102,9 @@ button {
   cursor: pointer;
   font-family: "Rubik", sans-serif;
 }
-button:hover {
-  background-color: rgba(234, 230, 230, 0.848);
-}
+// button:hover {
+//   background-color: rgba(234, 230, 230, 0.848);
+// }
 .resetBtn {
   color: red;
 }
@@ -199,7 +200,7 @@ button:active {
     // height: 50vh;
   }
   .form {
-    margin-top: 15vh;
+    margin-top: 25vh;
     width: 65vw;
     margin-bottom: 50%;
   }
