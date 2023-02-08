@@ -78,7 +78,7 @@ export class ProfilePageComponent implements OnInit {
       .getCurrentUser(this.currentUser['data'].user._id)
       .subscribe({
         next: (res: any) => {
-          console.log({ res });
+          // console.log({ res });
           this.userDetails = res.data.user;
           this.username = this.userDetails.username;
           this.email = this.userDetails.email;

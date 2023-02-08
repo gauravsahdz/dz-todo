@@ -38,15 +38,15 @@ export class EditTodoDialogComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
     });
-    
+
     if (this.todo) {
       this.todosForm.controls['title'].setValue(this.todo.title);
       this.todosForm.controls['description'].setValue(
         this.todo.description
         );
       }
-      
-    
+
+
 
     //if title is less than 5 or more than 15 characters show error
     this.todosForm.get('title').valueChanges.subscribe((value: string) => {
@@ -93,7 +93,7 @@ export class EditTodoDialogComponent implements OnInit {
           },
         });
     } else {
-      console.log('Please fill all the fields!');
+      // console.log('Please fill all the fields!');
       this.apiService.loader.next(false);
     }
   }

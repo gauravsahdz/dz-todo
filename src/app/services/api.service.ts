@@ -20,8 +20,13 @@ export class ApiService {
     return this.http.get<any>(`${this.url}/todos`);
   }
 
-  addDatas(datas: any) {
-    return this.http.post<any>(`${this.url}/todos`, datas);
+  getDatasByUser(id: any): Observable<any> {
+    // console.log("current user unique Id:", id);
+    return this.http.get<any>(`${this.url}/todos/getTodosByUserId/${id}`);
+  }
+
+  addDatas(datas: any, id: any) {
+    return this.http.post<any>(`${this.url}/todos/${id}`, datas);
   }
 
   updateDatas(data: any, id: any) {

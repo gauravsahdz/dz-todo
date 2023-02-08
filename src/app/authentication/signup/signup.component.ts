@@ -108,7 +108,7 @@ export class SignupComponent implements OnInit {
           this.apiService.loader.next(false);
         },
         error: (err) => {
-          console.log(err);
+          // console.log(err);
           if (err.status === 409) {
             this._snackBar.open('✗ Username or email already exists', 'X', {
               duration: 3000,

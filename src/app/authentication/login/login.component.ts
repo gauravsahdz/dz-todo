@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
           });
         },
         error: (err) => {
-          console.log('error from login:', err);
+          // console.log('error from login:', err);
           if (err.status === 401) {
             this._snackBar.open('✗ Invalid email or password', 'X', {
               duration: 3000,
@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
             });
           } else if (err.status === 403) {
             this._snackBar.open(
-              '✗ Account is not verified. Please check you mail to verify it.',
+              '✗ Account is not verified. Please check your mail to verify it.',
               'X',
               {
                 duration: 3000,

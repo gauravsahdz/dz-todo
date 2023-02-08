@@ -5,6 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-add-todo-dialog',
   templateUrl: './add-todo-dialog.component.html',
@@ -21,14 +24,20 @@ export class AddTodoDialogComponent implements OnInit {
   errorDesc: string = '';
   scrollIcon: boolean = true;
 
+  userDetails: any = [];
+  currentUser!: User;
+
   constructor(
     private apiService: ApiService,
     public http: HttpClient,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<AddTodoDialogComponent>
-  ) {}
+    public dialogRef: MatDialogRef<AddTodoDialogComponent>,
+    private authService: AuthService
+  ) {
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+  }
 
   ngOnInit(): void {
     this.todosForm = this.formBuilder.group({
@@ -63,9 +72,15 @@ export class AddTodoDialogComponent implements OnInit {
     this.actionTitle = 'Create';
   }
 
+  getCurrentUser() {
+    this.apiService.getCurrentUser(this.currentUser['data'].user._id).subscribe((res) => {
+      this.userDetails = res;
+    });
+  }
+
   addTodos() {
     if (this.todosForm.valid) {
-      this.apiService.addDatas(this.todosForm.value).subscribe({
+      this.apiService.addDatas(this.todosForm.value, this.currentUser['data'].user.uniqueID).subscribe({
         next: (res) => {
           let element: any = {};
           element['value'] = 'added';
@@ -83,7 +98,7 @@ export class AddTodoDialogComponent implements OnInit {
         },
       });
     } else {
-      console.log('Please fill all the fields!');
+      // console.log('Please fill all the fields!');
       this.apiService.loader.next(false);
     }
   }

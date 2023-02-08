@@ -11,7 +11,8 @@ import { VerifyDialogComponent } from '../verify-dialog/verify-dialog.component'
 import { HttpClient } from '@angular/common/http';
 import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.component';
 import { EditTodoDialogComponent } from '../edit-todo-dialog/edit-todo-dialog.component';
-
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -28,20 +29,29 @@ export class HomePageComponent implements OnInit {
   errorDesc: string = '';
   scrollIcon: boolean = true;
 
+  userDetails: any = [];
+  currentUser!: User;
+
   constructor(
     private apiService: ApiService,
     public http: HttpClient,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
-  ) {}
+    private authService: AuthService
+  ) {
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+  }
 
   ngOnInit(): void {
     this.todosForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
     });
-    this.getTodos();
+
+    this.getUserDetails();
+    this.getTodoByUserId();
+    // this.getTodos();
 
     //if title is less than 5 or more than 15 characters show error
     this.todosForm.get('title').valueChanges.subscribe((value: string) => {
@@ -78,7 +88,7 @@ export class HomePageComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res.value === 'added') {
-          this.getTodos();
+          this.getTodoByUserId();
           this._snackBar.open('✔ Added successfully', 'X', {
             duration: 2000,
             panelClass: ['success-snackbar'],
@@ -98,7 +108,7 @@ export class HomePageComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res.value === 'edited') {
-          this.getTodos();
+          this.getTodoByUserId();
           this._snackBar.open('✔ Updated successfully', 'X', {
             duration: 2000,
             panelClass: ['success-snackbar'],
@@ -108,41 +118,74 @@ export class HomePageComponent implements OnInit {
       });
   }
 
-  getTodos() {
-    this.apiService.getDatas().subscribe({
-      next: (res) => {
-        this.todos = res.data.todos;
-        this.apiService.loader.next(false);
-        // console.log('listing of datas: ', this.todos);
-      },
-      error: (err) => {
-        this._snackBar.open('✗ '+err.error.message, 'X', {
-          duration: 2000,
-          panelClass: ['error-snackbar'],
-          verticalPosition: 'top',
-        });
-        this.apiService.loader.next(false);
-      },
-    });
+  getUserDetails() {
+    this.apiService
+      .getCurrentUser(this.currentUser['data'].user._id)
+      .subscribe({
+        next: (res: any) => {
+          // console.log({ res });
+        },
+        error: (err) => {
+          // console.log({ err });
+        },
+      });
   }
+
+  getTodoByUserId() {
+    this.apiService
+      .getDatasByUser(this.currentUser['data'].user.uniqueID)
+      .subscribe({
+        next: (res) => {
+          this.todos = res.data.todos;
+        this.apiService.loader.next(false);
+          // console.log('listing of datas: ', this.todos);
+        },
+        error: (err) => {
+          this._snackBar.open('✗ ' + err.error.message, 'X', {
+            duration: 2000,
+            panelClass: ['error-snackbar'],
+            verticalPosition: 'top',
+          });
+          this.apiService.loader.next(false);
+        },
+      });
+  }
+
+  // getTodos() {
+  //   this.apiService.getDatas().subscribe({
+  //     next: (res) => {
+  //       this.todos = res.data.todos;
+  //       this.apiService.loader.next(false);
+  //       // console.log('listing of datas: ', this.todos);
+  //     },
+  //     error: (err) => {
+  //       this._snackBar.open('✗ ' + err.error.message, 'X', {
+  //         duration: 2000,
+  //         panelClass: ['error-snackbar'],
+  //         verticalPosition: 'top',
+  //       });
+  //       this.apiService.loader.next(false);
+  //     },
+  //   });
+  // }
 
   addTodos() {
     //if the form is not getting edited then add the todo else update the todo
     if (this.actionBtnText === 'Add') {
       if (this.todosForm.valid) {
-        this.apiService.addDatas(this.todosForm.value).subscribe({
+        this.apiService.addDatas(this.todosForm.value, this.currentUser['data'].user.uniqueID).subscribe({
           next: (res) => {
             this._snackBar.open('✔ Added successfully', 'X', {
               duration: 2000,
               panelClass: ['success-snackbar'],
               verticalPosition: 'top',
             });
-            this.getTodos();
+            this.getTodoByUserId();
             this.apiService.loader.next(false);
             this.todosForm.reset();
           },
           error: (err) => {
-            this._snackBar.open('✗ ' +err.error.message, 'X', {
+            this._snackBar.open('✗ ' + err.error.message, 'X', {
               duration: 2000,
               panelClass: ['error-snackbar'],
               verticalPosition: 'top',
@@ -151,7 +194,7 @@ export class HomePageComponent implements OnInit {
           },
         });
       } else {
-        console.log('Please fill all the fields!');
+        // console.log('Please fill all the fields!');
         this.apiService.loader.next(false);
       }
     } else {
@@ -185,10 +228,10 @@ export class HomePageComponent implements OnInit {
           this.actionBtnText = 'Add';
           this.actionTitle = 'Create';
           this.apiService.loader.next(false);
-          this.getTodos();
+          this.getTodoByUserId();
         },
         error: (err) => {
-          this._snackBar.open('✗ '+err.error.message, 'X', {
+          this._snackBar.open('✗ ' + err.error.message, 'X', {
             duration: 2000,
             panelClass: ['error-snackbar'],
             verticalPosition: 'top',
@@ -208,7 +251,7 @@ export class HomePageComponent implements OnInit {
       .subscribe((res) => {
         if (res.value === 'deleted') {
           this.apiService.loader.next(true);
-          this.getTodos();
+          this.getTodoByUserId();
           this._snackBar.open('✔ Deleted successfully', 'X', {
             duration: 2000,
             panelClass: ['success-snackbar'],

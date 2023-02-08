@@ -23,7 +23,7 @@ export class ResetPasswordComponent implements OnInit {
   errorPasswordConfirm: string = '';
   currentState: any;
   resetToken: null | undefined;
-  
+
   constructor(
     private authService: AuthService,
     public http: HttpClient,
@@ -36,11 +36,11 @@ export class ResetPasswordComponent implements OnInit {
     if (this.authService.currentUserValue) {
       this.router.navigate(['/todos']);
     }
-    
+
     // this.currentState = 'Wait';
      this.route.params.subscribe(params => {
       this.resetToken = params['token'];
-      console.log(this.resetToken);
+      // console.log(this.resetToken);
     //   this.VerifyToken();
     });
   }
@@ -102,7 +102,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   changePassword() {
-    console.log(this.resetToken);
+    // console.log(this.resetToken);
     if (this.resetPasswordForm.valid) {
       this.authService.resetPassword(this.resetToken ,this.resetPasswordForm.value).subscribe({
         next: (res) => {

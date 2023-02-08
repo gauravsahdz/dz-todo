@@ -6,10 +6,15 @@
   font-family: "Rubik", sans-serif;
   height: 100vh;
   overflow: hidden;
+  // background-image: linear-gradient(
+  //   109.6deg,
+  //   rgba(156, 252, 248, 1) 11.2%,
+  //   rgb(110, 110, 251) 91.1%
+  // );
   background-image: linear-gradient(
     109.6deg,
     rgba(156, 252, 248, 1) 11.2%,
-    rgb(110, 110, 251) 91.1%
+    rgb(211, 110, 251) 91.1%
   );
 }
 .contents {
@@ -91,7 +96,7 @@ button {
   height: 2.5rem;
   font-size: 1rem;
   color: white;
-  background-color: #0096ff;
+  background-color: #cf73fa;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   padding: 0.5rem;
