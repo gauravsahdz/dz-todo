@@ -10,7 +10,7 @@
   height: 8vh;
   z-index: 99;
 }
-.logo{
+.logo {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -34,7 +34,7 @@
   cursor: pointer;
   align-items: center;
 }
-.menus div{
+.menus div {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -69,7 +69,7 @@
 .menus ul li a:hover {
   color: rgb(230, 228, 228);
 }
-.fa{
+.fa {
   margin-right: 10px;
 }
 .login {
@@ -83,7 +83,7 @@
   background-color: black;
   border-radius: 30px;
 }
-.signup a{
+.signup a {
   padding: 5px;
 }
 .avatar {
@@ -93,7 +93,7 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.user-details{
+.user-details {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -101,15 +101,65 @@
   cursor: pointer;
   padding: 0.5rem;
 }
-.username{
+.username {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.username i{
+.username i {
   margin-right: 5px;
 }
+
+.toolbar .category {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  margin-right: 20px;
+}
+.category ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.category ul li {
+  margin-right: 20px;
+  width: 100px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  border-radius: 5px;
+  padding: 0.3rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+// .category ul li:hover {
+//   color: white;
+//   background-color: rgb(53, 42, 42);
+// }
+.category ul li.focused {
+  color: white;
+  background-color: rgb(53, 42, 42);
+}
+
+
+// .buttonToLoadTodos {
+//   background-color: #fff;
+//   border: 1px solid #ccc;
+//   color: black;
+//   padding: 5px 10px;
+//   cursor: pointer;
+// }
+
+// .buttonToLoadTodos .focused {
+//   background-color: #ccc;
+// }
 
 @media screen and (max-width: 480px) {
   .navbar {

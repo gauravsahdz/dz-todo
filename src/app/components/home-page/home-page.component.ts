@@ -8,11 +8,13 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { VerifyDialogComponent } from '../verify-dialog/verify-dialog.component';
+import { MarkAsCompletedTodoDialogComponent } from '../mark-as-completed-todo-dialog/mark-as-completed-todo-dialog.component';
 import { HttpClient } from '@angular/common/http';
 import { AddTodoDialogComponent } from '../add-todo-dialog/add-todo-dialog.component';
 import { EditTodoDialogComponent } from '../edit-todo-dialog/edit-todo-dialog.component';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { TodoServiceService } from 'src/app/services/todo-service.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -32,13 +34,17 @@ export class HomePageComponent implements OnInit {
   userDetails: any = [];
   currentUser!: User;
 
+  todoStatus: string = 'active';
+  StatusOfTodos: any = [];
+
   constructor(
     private apiService: ApiService,
     public http: HttpClient,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private todoService: TodoServiceService
   ) {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
   }
@@ -50,8 +56,10 @@ export class HomePageComponent implements OnInit {
     });
 
     this.getUserDetails();
-    this.getTodoByUserId();
-    // this.getTodos();
+    this.getActiveTodos();
+    // this.getTodos(this.todoStatus);
+    this.getTodoByStatus();
+    // this.todoService.getStatusTodos();
 
     //if title is less than 5 or more than 15 characters show error
     this.todosForm.get('title').valueChanges.subscribe((value: string) => {
@@ -88,7 +96,8 @@ export class HomePageComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res.value === 'added') {
-          this.getTodoByUserId();
+          this.getTodoByStatus();
+          // this.getTodos('active');
           this._snackBar.open('✔ Added successfully', 'X', {
             duration: 2000,
             panelClass: ['success-snackbar'],
@@ -108,7 +117,8 @@ export class HomePageComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res.value === 'edited') {
-          this.getTodoByUserId();
+          this.getTodoByStatus();
+          // this.getTodos('active');
           this._snackBar.open('✔ Updated successfully', 'X', {
             duration: 2000,
             panelClass: ['success-snackbar'],
@@ -131,13 +141,33 @@ export class HomePageComponent implements OnInit {
       });
   }
 
-  getTodoByUserId() {
+  getTodoByStatus() {
+    this.todoService.getStatusTodos().subscribe({
+      next: (res: any) => {
+        this.todos = res;
+        this.StatusOfTodos = res[0].status;
+        this.apiService.loader.next(false);
+        console.log('listing of datas in homepage: ', this.todos);
+      },
+      error: (err: { error: { message: string } }) => {
+        this._snackBar.open('✗ ' + err.error.message, 'X', {
+          duration: 2000,
+          panelClass: ['error-snackbar'],
+          verticalPosition: 'top',
+        });
+        this.apiService.loader.next(false);
+      },
+    });
+  }
+
+
+  getTodos(StatusOfTodos: any) {
     this.apiService
-      .getDatasByUser(this.currentUser['data'].user.uniqueID)
+      .todosByStatus(this.currentUser['data'].user.uniqueID, this.StatusOfTodos)
       .subscribe({
         next: (res) => {
           this.todos = res.data.todos;
-        this.apiService.loader.next(false);
+          this.apiService.loader.next(false);
           // console.log('listing of datas: ', this.todos);
         },
         error: (err) => {
@@ -151,48 +181,56 @@ export class HomePageComponent implements OnInit {
       });
   }
 
-  // getTodos() {
-  //   this.apiService.getDatas().subscribe({
-  //     next: (res) => {
-  //       this.todos = res.data.todos;
-  //       this.apiService.loader.next(false);
-  //       // console.log('listing of datas: ', this.todos);
-  //     },
-  //     error: (err) => {
-  //       this._snackBar.open('✗ ' + err.error.message, 'X', {
-  //         duration: 2000,
-  //         panelClass: ['error-snackbar'],
-  //         verticalPosition: 'top',
-  //       });
-  //       this.apiService.loader.next(false);
-  //     },
-  //   });
-  // }
+  getActiveTodos() {
+    this.apiService
+      .todosByStatus(this.currentUser['data'].user.uniqueID, 'active')
+      .subscribe({
+        next: (res) => {
+          this.todos = res.data.todos;
+          this.apiService.loader.next(false);
+          // console.log('listing of datas: ', this.todos);
+        },
+        error: (err) => {
+          this._snackBar.open('✗ ' + err.error.message, 'X', {
+            duration: 2000,
+            panelClass: ['error-snackbar'],
+            verticalPosition: 'top',
+          });
+          this.apiService.loader.next(false);
+        },
+      });
+  }
 
   addTodos() {
     //if the form is not getting edited then add the todo else update the todo
     if (this.actionBtnText === 'Add') {
       if (this.todosForm.valid) {
-        this.apiService.addDatas(this.todosForm.value, this.currentUser['data'].user.uniqueID).subscribe({
-          next: (res) => {
-            this._snackBar.open('✔ Added successfully', 'X', {
-              duration: 2000,
-              panelClass: ['success-snackbar'],
-              verticalPosition: 'top',
-            });
-            this.getTodoByUserId();
-            this.apiService.loader.next(false);
-            this.todosForm.reset();
-          },
-          error: (err) => {
-            this._snackBar.open('✗ ' + err.error.message, 'X', {
-              duration: 2000,
-              panelClass: ['error-snackbar'],
-              verticalPosition: 'top',
-            });
-            this.apiService.loader.next(false);
-          },
-        });
+        this.apiService
+          .addDatas(
+            this.todosForm.value,
+            this.currentUser['data'].user.uniqueID
+          )
+          .subscribe({
+            next: (res) => {
+              this._snackBar.open('✔ Added successfully', 'X', {
+                duration: 2000,
+                panelClass: ['success-snackbar'],
+                verticalPosition: 'top',
+              });
+              this.getTodoByStatus();
+              this.getTodos(this.StatusOfTodos);
+              this.apiService.loader.next(false);
+              this.todosForm.reset();
+            },
+            error: (err) => {
+              this._snackBar.open('✗ ' + err.error.message, 'X', {
+                duration: 2000,
+                panelClass: ['error-snackbar'],
+                verticalPosition: 'top',
+              });
+              this.apiService.loader.next(false);
+            },
+          });
       } else {
         // console.log('Please fill all the fields!');
         this.apiService.loader.next(false);
@@ -228,7 +266,8 @@ export class HomePageComponent implements OnInit {
           this.actionBtnText = 'Add';
           this.actionTitle = 'Create';
           this.apiService.loader.next(false);
-          this.getTodoByUserId();
+          this.getTodoByStatus();
+          this.getTodos(this.StatusOfTodos);
         },
         error: (err) => {
           this._snackBar.open('✗ ' + err.error.message, 'X', {
@@ -241,6 +280,7 @@ export class HomePageComponent implements OnInit {
       });
   }
 
+  // function to delete the todo
   deleteTodos(id: any) {
     this.dialog
       .open(VerifyDialogComponent, {
@@ -250,8 +290,8 @@ export class HomePageComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res.value === 'deleted') {
-          this.apiService.loader.next(true);
-          this.getTodoByUserId();
+          this.getTodoByStatus();
+          this.getTodos(this.StatusOfTodos);
           this._snackBar.open('✔ Deleted successfully', 'X', {
             duration: 2000,
             panelClass: ['success-snackbar'],
@@ -259,5 +299,27 @@ export class HomePageComponent implements OnInit {
           });
         }
       });
+  }
+
+  // function to mark the todo as completed
+  markAsCompleted(id: any) {
+    this.dialog.open(MarkAsCompletedTodoDialogComponent, {
+      width: '481px',
+      data: id,
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res.value === 'completed') {
+          this.apiService.loader.next(true);
+          this.getTodoByStatus();
+          this.getTodos(this.StatusOfTodos);
+          this._snackBar.open('✔ Marked as completed', 'X', {
+            duration: 2000,
+            panelClass: ['success-snackbar'],
+            verticalPosition: 'top',
+          });
+        }
+      });
+
   }
 }

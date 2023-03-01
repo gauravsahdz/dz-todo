@@ -50,25 +50,36 @@
           <b>{{ items.title }}</b>
           <div class="util-icons">
             <img
-              class="icons edit-icon-visible"
-              (click)="editTodo(items)"
+            class="icons edit-icon-visible"
+            (click)="editTodo(items)"
+            *ngIf="items.status === 'active'"
               src="../../../assets/icons/edit_icon.png"
-            />
-
-            <img
+              />
+              
+              <img
               class="icons edit-icon-invisible"
               (click)="editDialogTodo(items)"
               src="../../../assets/icons/edit_icon.png"
             />
-
+            
             <img
-              class="icons"
-              (click)="deleteTodos(items._id)"
-              src="../../../assets/icons/delete_icon.png"
+            class="icons"
+            (click)="deleteTodos(items._id)"
+            src="../../../assets/icons/delete_icon.png"
             />
+            
           </div>
         </div>
         <p>{{ items.description }}</p>
+        <button
+          mat-button
+          class="completed-btn"
+          *ngIf="items.status === 'active'"
+          (click)="markAsCompleted(items._id)"
+        >
+          {{ items.completed ? "Completed" : "Mark as completed" }}
+        </button>
+        <p *ngIf="items.status == 'completed'" class="completed-sign">✔ Completed</p>
       </div>
     </div>
   </div>

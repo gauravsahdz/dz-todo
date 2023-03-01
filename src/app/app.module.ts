@@ -31,6 +31,8 @@ import { AddTodoDialogComponent } from './components/add-todo-dialog/add-todo-di
 import { EditTodoDialogComponent } from './components/edit-todo-dialog/edit-todo-dialog.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { MarkAsCompletedTodoDialogComponent } from './components/mark-as-completed-todo-dialog/mark-as-completed-todo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     VerifyUserDeletionComponent,
     AddTodoDialogComponent,
     EditTodoDialogComponent,
+    ToolbarComponent,
+    MarkAsCompletedTodoDialogComponent,
   ],
   imports: [
     BrowserModule,

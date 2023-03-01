@@ -65,4 +65,12 @@ export class ApiService {
     );
     return this.http.request(req);
   }
+
+  todosByStatus(id: any, status: any) {
+    return this.http.get<any>(`${this.url}/todos/getTodosByUserId/${id}/${status}`);
+  }
+
+  markAsCompleted(id: any) {
+    return this.http.patch<any>(`${this.url}/todos/markAsCompleted/${id}`, {});
+  }
 }

@@ -211,6 +211,24 @@ textarea {
 .responsive-add-btn {
   display: none;
 }
+.completed-btn{
+  background-color: whitesmoke;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  //hover
+  &:hover{
+    color: green;
+    box-shadow: black 1px 1px 5px;
+    background-color: #fff;
+    transition: 0.2s;
+  }
+}
+
+.completed-sign{
+  color: green;
+  font-size: 0.8rem;
+  margin-left: 5px;
+}
 
 //css for responsiveness
 @media screen and (max-width: 480px) {
