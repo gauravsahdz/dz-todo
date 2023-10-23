@@ -1,97 +1,20 @@
-<div class="container">
-  <div class="form-container">
-    <form [formGroup]="todosForm" class="form">
-      <h2>{{ actionTitle }} Todo</h2>
+<mat-card class="post-card">
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mat-label>What's happening?</mat-label>
+      <textarea
+        matInput
+        rows="4"
+        placeholder="Tweet your reply"
+        [formControl]="postFormControl"
+        (change)="onPostChange()"
+      ></textarea>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button class="tweetBtn" (click)="tweet()">Tweet</button>
+  </mat-card-actions>
+</mat-card>
 
-      <div class="form-line">
-        <mat-form-field class="matformfield">
-          <mat-label>Title</mat-label>
-          <input
-            matInput
-            formControlName="title"
-            autocomplete="off"
-            maxlength="15"
-            minlength="5"
-          />
-        </mat-form-field>
-        <p class="error">{{ errorTitle }}</p>
-      </div>
-
-      <div class="form-line">
-        <mat-form-field class="matformfield">
-          <mat-label>Description</mat-label>
-          <textarea
-            matInput
-            formControlName="description"
-            placeholder="Ex. buy milk from the market for evening..."
-            maxlength="100"
-            minlength="10"
-          ></textarea>
-        </mat-form-field>
-        <p class="error">{{ errorDesc }}</p>
-      </div>
-
-      <div class="actionBtn">
-        <button type="submit" class="addBtn Btn" (click)="addTodos()">
-          {{ actionBtnText }}
-        </button>
-        <button type="submit" class="resetBtn Btn" (click)="resetForm()">
-          Reset
-        </button>
-      </div>
-    </form>
-  </div>
-
-  <div class="lists">
-
-    <div class="lists-card">
-      <div class="card" *ngFor="let items of todos">
-        <div class="first-row">
-          <b>{{ items.title }}</b>
-          <div class="util-icons">
-            <img
-            class="icons edit-icon-visible"
-            (click)="editTodo(items)"
-            *ngIf="items.status === 'active'"
-              src="../../../assets/icons/edit_icon.png"
-              />
-              
-              <img
-              class="icons edit-icon-invisible"
-              (click)="editDialogTodo(items)"
-              src="../../../assets/icons/edit_icon.png"
-            />
-            
-            <img
-            class="icons"
-            (click)="deleteTodos(items._id)"
-            src="../../../assets/icons/delete_icon.png"
-            />
-            
-          </div>
-        </div>
-        <p>{{ items.description }}</p>
-        <button
-          mat-button
-          class="completed-btn"
-          *ngIf="items.status === 'active'"
-          (click)="markAsCompleted(items._id)"
-        >
-          {{ items.completed ? "Completed" : "Mark as completed" }}
-        </button>
-        <p *ngIf="items.status == 'completed'" class="completed-sign">✔ Completed</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="responsive-add-btn">
-    <button
-      (click)="openAddDialog()"
-      mat-mini-fab
-      color="primary"
-      aria-label="Example icon button with a menu icon"
-    >
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-</div>
+<!-- Timeline Component -->
+<app-timeline [reload]="reload"></app-timeline>

@@ -23,7 +23,7 @@ export class LoaderInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       tap((event) => {
-        this.api.loader.next(true);
+        this.api.loader.next(false);
         if (event.type == HttpEventType.Response) {
           if (event.status == 200) {
             this.api.loader.next(false);

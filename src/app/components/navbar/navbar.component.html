@@ -1,22 +1,24 @@
 <div class="navbar">
   <div class="logo" routerLink="/todos">
-    <h1>DZ TODO</h1>
+    <img src="../../../assets/logo.png" alt="logo" height="50" width="50" />
+    <h1>Squawk</h1>
+  </div>
+
+  <div class="searchbar">
+    <mat-form-field appearance="outline" color="primary"
+      ><mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="searchInput"
+        (input)="filterItems()"
+      />
+    </mat-form-field>
   </div>
 
   <div class="menus">
-
-    <div class="toolbar" *ngIf="loggedIn;">
-      <div class="category">
-        <ul>
-          <li [class.focused]="button1Focused" class="buttonToLoadTodos" (click)="onButtonClick(1)">Active</li>
-          <li [class.focused]="button2Focused" class="buttonToLoadTodos" (click)="onButtonClick(2)">Completed</li>
-        </ul>          
-      </div>
-    </div>
     <div [matMenuTriggerFor]="menu" *ngIf="loggedIn; else loggedOut">
-
-      
-
       <img src="{{ userImage }}" alt="avatar" class="avatar" />
       <h2>{{ username }} &#x25BC;</h2>
       <mat-menu #menu="matMenu">
@@ -27,11 +29,7 @@
           <i class="fa fa-power-off" aria-hidden="true"></i>Logout
         </button>
       </mat-menu>
-
-      
     </div>
-
-    
 
     <ng-template #loggedOut>
       <ul>
@@ -41,4 +39,3 @@
     </ng-template>
   </div>
 </div>
-

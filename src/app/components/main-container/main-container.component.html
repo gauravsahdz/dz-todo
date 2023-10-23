@@ -1,0 +1,46 @@
+<div class="content">
+  <div class="left-column">
+    <mat-list *ngFor="let option of sidebarOptions">
+      <mat-list-item (click)="navigateTo(option.route)">
+        <mat-icon matListIcon>{{ option.icon }}</mat-icon>
+        <h3 matLine>
+          {{ option.name }}
+          <span
+            class="notification-count"
+            *ngIf="
+              option.route === '/notifications' && newNotificationsCount > 0
+            "
+            >{{ newNotificationsCount }}</span
+          >
+        </h3>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="right-column">
+    <mat-list *ngFor="let user of users">
+      <mat-list-item>
+        <div class="user-info">
+          <img
+            src="https://xsgames.co/randomusers/avatar.php?g=male"
+            alt="avatar"
+            class="avatar"
+          />
+          <h3 matLine>{{ user.username }}</h3>
+        </div>
+        <div (click)="follow(user.userId)">
+          <ng-container *ngIf="!user.followers.includes(userId); else followed">
+            <button mat-button color="primary">follow</button>
+          </ng-container>
+          <ng-template #followed>
+            <button mat-button style="color: rgb(95, 97, 100)">unfollow</button>
+          </ng-template>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>

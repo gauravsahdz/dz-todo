@@ -1,0 +1,24 @@
+<div class="profile-page">
+  <div class="header">
+    <div class="cover">
+      <img src="https://picsum.photos/2000/300" alt="cover" />
+    </div>
+    <div class="avatar">
+      <img
+        src="https://xsgames.co/randomusers/avatar.php?g=male"
+        alt="avatar"
+      />
+    </div>
+    <div class="header_info">
+      <mat-card-title class="post-title">{{ username }}</mat-card-title>
+      <mat-card-subtitle class="post-subtitle">{{ email }}</mat-card-subtitle>
+    </div>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Posts">
+      <app-timeline [mine]="mine"></app-timeline>
+    </mat-tab>
+    <mat-tab label="Replies"> </mat-tab>
+    <mat-tab label="Media"> </mat-tab>
+  </mat-tab-group>
+</div>

@@ -12,34 +12,41 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
-import { VerifyDialogComponent } from './components/verify-dialog/verify-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MyLoaderComponent } from './components/my-loader/my-loader.component';
 import { LoaderInterceptor } from './interceptors/loader-interceptor.service';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { LoginComponent } from './authentication/login/login.component';
-import { SignupComponent } from './authentication/signup/signup.component';
-import {MatMenuModule} from '@angular/material/menu';
-import { ProfilePageComponent } from './authentication/profile-page/profile-page.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from './components/footer/footer.component';
-import { ForgetPasswordComponent } from './authentication/forget-password/forget-password.component';
-import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
-import { UpdateCurrentUserPasswordComponent } from './authentication/update-current-user-password/update-current-user-password.component';
-import { VerifyUserDeletionComponent } from './components/verify-user-deletion/verify-user-deletion.component';
-import { AddTodoDialogComponent } from './components/add-todo-dialog/add-todo-dialog.component';
-import { EditTodoDialogComponent } from './components/edit-todo-dialog/edit-todo-dialog.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { MarkAsCompletedTodoDialogComponent } from './components/mark-as-completed-todo-dialog/mark-as-completed-todo-dialog.component';
+import { MyLoaderComponent } from '././utils/my-loader/my-loader.component';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { SignupComponent } from './components/authentication/signup/signup.component';
+import { ProfilePageComponent } from './components/authentication/profile-page/profile-page.component';
+import { ForgetPasswordComponent } from './components/authentication/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './components/authentication/reset-password/reset-password.component';
+import { UpdateCurrentUserPasswordComponent } from './components/authentication/update-current-user-password/update-current-user-password.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { VerifyModal } from './utils/modal/verify-modal';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
+import { FormsModule } from '@angular/forms';
+import { MainContainerComponent } from './components/main-container/main-container.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { ExploreComponent } from './components/explore/explore.component';
+import { MessagesComponent } from './components/messages/messages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomePageComponent,
-    VerifyDialogComponent,
     MyLoaderComponent,
     LoginComponent,
     SignupComponent,
@@ -48,11 +55,12 @@ import { MarkAsCompletedTodoDialogComponent } from './components/mark-as-complet
     ForgetPasswordComponent,
     ResetPasswordComponent,
     UpdateCurrentUserPasswordComponent,
-    VerifyUserDeletionComponent,
-    AddTodoDialogComponent,
-    EditTodoDialogComponent,
-    ToolbarComponent,
-    MarkAsCompletedTodoDialogComponent,
+    TimelineComponent,
+    VerifyModal,
+    MainContainerComponent,
+    NotificationComponent,
+    ExploreComponent,
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,12 +76,21 @@ import { MarkAsCompletedTodoDialogComponent } from './components/mark-as-complet
     MatMenuModule,
     MatIconModule,
     MatToolbarModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
+    MatSidenavModule,
+    MatGridListModule,
+    FormsModule,
+    MatTabsModule,
+    MatChipsModule,
   ],
+
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

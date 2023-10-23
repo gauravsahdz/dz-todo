@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="contents">
+    <div class="landing-page">
+      <div class="welcome">
+        <h2>Welcome to squawk</h2>
+        <img
+          src="../../../assets/loginPage.svg"
+          alt="illustration-todo"
+          height="300"
+          width="400"
+        />
+        <h3>
+          Squawk is a twitter clone that allows you to share your thoughts with
+          the world.
+        </h3>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <form [formGroup]="loginForm" class="form">
+        <h1>Login</h1>
+
+        <mat-form-field class="matformfield">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <p class="error">{{ errorEmail }}</p>
+
+        <mat-form-field class="matformfield">
+          <mat-label>Password</mat-label>
+          <div class="password">
+            <input
+              matInput
+              [type]="show ? 'text' : 'password'"
+              formControlName="password"
+              maxlength="15"
+              minlength="8"
+            /><i
+              class="far fa-eye"
+              *ngIf="eyeShown"
+              id="togglePassword"
+              (click)="passwordShown()"
+            ></i>
+            <i
+              class="far fa-eye-slash"
+              (click)="passwordHidden()"
+              *ngIf="eyeHidden"
+              aria-hidden="true"
+            ></i>
+          </div>
+        </mat-form-field>
+        <p class="error">{{ errorPassword }}</p>
+        <p
+          class="forgetPassword"
+          style="color: #a90df0"
+          routerLink="/forgetPassword"
+        >
+          Forget Password?
+        </p>
+
+        <div class="actionBtn">
+          <button type="submit" class="addBtn" (click)="login()">
+            Sign In
+          </button>
+          <!-- <button type="submit" class="resetBtn" (click)="resetForm()">Reset</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

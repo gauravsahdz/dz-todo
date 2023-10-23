@@ -1,0 +1,65 @@
+/* explore.component.css */
+
+.explore-container {
+}
+
+.user-list {
+  padding: 16px;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: transparent; /* Make the thumb transparent */
+  }
+
+
+  mat-card {
+    width: 300px;
+  }
+}
+
+.user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 16px;
+}
+.topic-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+.topic-chip {
+  margin: 8px;
+}
+
+.mat-card {
+  margin: 16px;
+}
+
+.mat-tab-group {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f8fa;
+}
+
+.mat-tab-body {
+  padding: 16px;
+}
+
+.mat-tab-label {
+  font-size: 1rem;
+}
+
+
+/* You can add more styling to make it Twitter-like */
