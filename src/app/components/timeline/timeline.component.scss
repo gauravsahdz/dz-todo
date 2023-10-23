@@ -1,0 +1,77 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+.post-card {
+  width: 100%;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.user-title {
+  margin-left: 8px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.post-icon {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.post-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 8px 0;
+}
+
+.post-subtitle {
+  color: #555;
+  font-size: 0.7rem;
+}
+
+.vert-icon {
+  color: #555;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.post-content {
+  padding: 16px;
+}
+
+.post-actions {
+  justify-content: space-between;
+}
+
+.post-button {
+  color: #555;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.post-button:hover {
+  color: rgb(211, 110, 251);
+  transition: 0.3s;
+}
+
+@media screen and (max-width: 768px) {
+  .post-card {
+    width: 100%;
+  }
+}

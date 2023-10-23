@@ -1,0 +1,14 @@
+<div class="notification-container">
+  <div class="notification" *ngFor="let notification of currentUserNotifications">
+      <div class="notification-content">
+        <p>
+          <strong>{{ notification.senderId }}</strong> liked your post
+          <span class="timestamp">{{
+            notification.createdAt | date : "short"
+          }}</span>
+        </p>
+        <p class="post-text">{{ notification.post.post }}</p>
+      </div>
+      <mat-divider></mat-divider>
+  </div>
+</div>

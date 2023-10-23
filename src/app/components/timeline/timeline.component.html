@@ -1,0 +1,57 @@
+<div class="timeline">
+  <mat-card *ngFor="let post of posts" class="post-card">
+    <div class="header">
+      <div class="header-left">
+        <img
+          src="https://xsgames.co/randomusers/avatar.php?g=male"
+          alt="avatar"
+          class="post-icon"
+        />
+        <div class="user-title">
+          <mat-card-title class="post-title">{{
+            post.username
+          }}</mat-card-title>
+          <mat-card-subtitle class="post-subtitle">{{
+            post.createdAt | date
+          }}</mat-card-subtitle>
+        </div>
+      </div>
+
+      <button mat-icon-button [matMenuTriggerFor]="postMenu" *ngIf="post.userId === userId">
+        <mat-icon class="vert-icon">more_vert</mat-icon>
+      </button>
+      <mat-menu #postMenu="matMenu">
+        <button mat-menu-item (click)="editPost(post)">Edit</button>
+        <button mat-menu-item (click)="deletePost(post)">Delete</button>
+      </mat-menu>
+    </div>
+    <mat-card-content class="post-content">
+      <p>{{ post.post }}</p>
+    </mat-card-content>
+    <mat-card-actions class="post-actions">
+      <button mat-icon-button class="post-button" (click)="likePost(post)">
+        <ng-container *ngIf="post.likedBy.includes(userId); else unliked">
+          <mat-icon style="color: rgb(211, 110, 251)">thumb_up</mat-icon>
+        </ng-container>
+        <ng-template #unliked>
+          <mat-icon>thumb_up</mat-icon>
+        </ng-template>
+        <span> {{ post.likes }}</span>
+      </button>
+      <button mat-icon-button class="post-button">
+        <mat-icon>comment</mat-icon>
+      </button>
+      <button mat-icon-button class="post-button" (click)="retweetPost(post)">
+        <ng-container
+          *ngIf="post.retweetedBy.includes(userId); else notRetweeted"
+        >
+          <mat-icon style="color: rgb(211, 110, 251)">repeat</mat-icon>
+        </ng-container>
+        <ng-template #notRetweeted>
+          <mat-icon>repeat</mat-icon>
+        </ng-template>
+        <span>{{ post.retweets }}</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
