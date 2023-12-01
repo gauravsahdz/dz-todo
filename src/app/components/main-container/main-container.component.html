@@ -43,4 +43,13 @@
       </mat-list-item>
     </mat-list>
   </div>
+
+  <!-- mobile view bottom bar -->
+  <div class="bottom-bar">
+    <mat-list class="bottom-bar__mat-list">
+      <mat-list-item *ngFor="let option of sidebarOptions.slice(0, 5)" (click)="navigateTo(option.route)">
+        <mat-icon matListIcon>{{ option.icon }}</mat-icon>
+      </mat-list-item>
+    </mat-list>
+  </div>
 </div>

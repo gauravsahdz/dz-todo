@@ -15,6 +15,12 @@
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+  @media (max-width: 768px) {
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  }
 }
 .logo h1 {
   font-family: "Rubik", sans-serif;
@@ -24,6 +30,11 @@
   margin-left: 10px;
   cursor: pointer;
   color: black;
+
+  @media (max-width: 768px) {
+    margin-left: 0px;
+    font-size: 1.1rem;
+  }
 }
 .searchbar {
   display: flex;
@@ -31,6 +42,10 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 .searchedProfile {
   display: flex;
@@ -52,6 +67,10 @@
   justify-content: space-between;
   cursor: pointer;
   align-items: center;
+  @media (max-width: 768px) {
+    // display: none;
+    margin-right: 0px;
+  }
 }
 .menus div {
   display: flex;
@@ -66,6 +85,10 @@
   margin: 20px 20px 20px 0px;
   cursor: pointer;
   color: black;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 .menus ul {
   display: flex;
@@ -190,7 +213,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -200,28 +223,4 @@
     "left left right"
     "left left right"
     "left left right";
-
-
-}
-@media screen and (max-width: 480px) {
-  .navbar {
-    height: 8vh;
-  }
-  .logo h1 {
-    margin-left: 10px;
-    font-size: 1.1rem;
-  }
-  .menus {
-    margin-right: 5px;
-  }
-  .menus ul li {
-    font-size: 1rem;
-    margin-right: 10px;
-    padding: 0.3rem;
-  }
-
-  .avatar {
-    width: 30px;
-    height: 30px;
-  }
 }
