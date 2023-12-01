@@ -25,6 +25,10 @@
     background-color: #e8f5fe;
     transition: 0.3s;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .main-content {
@@ -34,6 +38,10 @@
   border-radius: 12px;
   z-index: 1;
 
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .right-column {
@@ -51,6 +59,10 @@
 
   button {
     margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 }
 
@@ -90,4 +102,28 @@ h3 {
   border-radius: 50%;
   padding: 2px 6px;
   margin-left: 5px;
+}
+
+.bottom-bar {
+  width: 100%;
+  display: none;
+  height: 50px;
+  background-color: #f5f8fa;
+  border-top: 1px solid #e1e8ed;
+  z-index: 10;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  &__mat-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  @media (max-width: 768px) {
+    display: block;
+    height: auto;
+  }
 }

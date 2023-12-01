@@ -1,31 +1,31 @@
 <!-- explore.component.html -->
 
 <div class="explore-container">
-  <mat-tab-group>
-    <mat-tab label="Users">
+  <div class="tab-group">
+    <div class="tab" label="Users">
       <div class="user-list">
-        <mat-card *ngFor="let user of exploreUsers">
-          <mat-card-header>
-            <div mat-card-avatar class="user-avatar">
-              <img [src]="user.profile_image_url" alt="{{ user.name }}">
+        <div class="card" *ngFor="let user of exploreUsers">
+          <div class="card-header">
+            <div class="user-avatar">
+              <img [src]="user.profile_image_url" alt="{{ user.name }}" />
             </div>
-            <mat-card-title>{{ user.name }}</mat-card-title>
-            <mat-card-subtitle>@{{ user.screen_name }}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <p>Location: {{ user.location }}</p>
-          </mat-card-content>
-        </mat-card>
+            <div class="user-info">
+              <div class="card-title">{{ user.name }}</div>
+              <div class="card-subtitle">@{{ user.screen_name }}</div>
+              <p>Location: {{ user.location }}</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </mat-tab>
-    <mat-tab label="Topics">
+    </div>
+    <div class="tab" label="Topics">
       <div class="topic-list">
-        <mat-chip-list>
-          <mat-chip *ngFor="let topic of exploreTopics" class="topic-chip">
+        <div class="chip-list">
+          <div class="chip" *ngFor="let topic of exploreTopics">
             {{ topic.topic }}
-          </mat-chip>
-        </mat-chip-list>
+          </div>
+        </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </div>
+  </div>
 </div>

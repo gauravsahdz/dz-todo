@@ -4,12 +4,20 @@
   align-items: center;
   height: 100%;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 }
 .post-card {
   width: 100%;
   margin: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 .header {
   display: flex;
